@@ -1,6 +1,7 @@
 package com.supremecorp.springrest.controllers;
 
 import com.supremecorp.springrest.domains.Employee;
+import com.supremecorp.springrest.exceptions.EmployeeNotFoundException;
 import com.supremecorp.springrest.repositories.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
