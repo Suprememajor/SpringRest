@@ -36,4 +36,12 @@ public class Order {
                 ", status='" + status + '\'' +
                 '}';
     }
+
+    public static enum Status {
+
+        IN_PROGRESS, //
+        COMPLETED, //
+        CANCELLED
+    }
 }
+

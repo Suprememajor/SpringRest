@@ -1,7 +1,9 @@
 package com.supremecorp.springrest;
 
 import com.supremecorp.springrest.domains.Employee;
+import com.supremecorp.springrest.domains.Order;
 import com.supremecorp.springrest.repositories.EmployeeRepository;
+import com.supremecorp.springrest.repositories.OrderRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -13,11 +15,21 @@ public class LoadDatabase {
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
     @Bean
-    CommandLineRunner initDatabase(EmployeeRepository repository) {
+    CommandLineRunner initDatabase(EmployeeRepository employeeRepository, OrderRepository orderRepository) {
 
         return args -> {
-            log.info("Preloading " + repository.save(new Employee("Bilbo Baggins", "burglar")));
-            log.info("Preloading " + repository.save(new Employee("Frodo Baggins", "thief")));
+            employeeRepository.save(new Employee("Bilbo Baggins", "burglar"));
+            employeeRepository.save(new Employee("Frodo Baggins", "thief"));
+
+            employeeRepository.findAll().forEach(employee -> log.info("Preloaded " + employee));
+
+
+            orderRepository.save(new Order("MacBook Pro", Order.Status.COMPLETED.toString()));
+            orderRepository.save(new Order("iPhone", Order.Status.IN_PROGRESS.toString()));
+
+            orderRepository.findAll().forEach(order -> {
+                log.info("Preloaded " + order);
+            });
         };
     }
 }
